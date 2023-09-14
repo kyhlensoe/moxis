@@ -12,7 +12,7 @@ class PassGenerator
     private $numlower; // desired number of lowercase letters
     private $numupper; // desired number of uppercase letters
     private $numint; // desired number of numbers 
-    private $numspecial; // desired number of special charaters
+    private $numspecial; // desired number of special charaters 
 
     /**
      * PassGenerator constructor.
@@ -29,12 +29,14 @@ class PassGenerator
         $this->symbols["upper_case"] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $this->symbols["numbers"] = '1234567890';
         $this->symbols["special_symbols"] = '!?~@#-_+<>[]{}';
+
+        $maxnum = 50; // maximum number of charaters in all fields
     
-        $this->length = $length;
-        $this->numlower = $numlower;
-        $this->numupper = $numupper; 
-        $this->numint = $numint; 
-        $this->numspecial = $numspecial;
+        $this->length = ($length < $maxnum ? $length : $maxnum);
+        $this->numlower = ($numlower < $maxnum ? $numlower : $maxnum);
+        $this->numupper = ($numupper < $maxnum ? $numupper : $maxnum); 
+        $this->numint = ($numint < $maxnum ? $numint : $maxnum); 
+        $this->numspecial = ($numspecial < $maxnum ? $numspecial : $maxnum);
     }
 
     /**

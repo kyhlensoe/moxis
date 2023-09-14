@@ -3,11 +3,9 @@
 require_once(__DIR__.'/PassGenerator.php');
 require_once(__DIR__.'/PassValidator.php');
 
-$PassGenerator = new PassGenerator(16,1,0,0,0);
-$PassValidator = new PassValidator();
+$PassGenerator = new PassGenerator(16);
+$PassValidator = new PassValidator(10);
 
-  echo 'test';
-  echo '<br>';
   echo 'generated pasword ' . htmlspecialchars($PassGenerator->generate());
   echo '<br>';
   echo '<br>';
@@ -21,8 +19,10 @@ $PassValidator = new PassValidator();
   echo '<br>';
   if($PassValidator->scorePassword($PassGenerator->getPassword()) == 0){
     echo 'password is good';
-  }else{
-    echo 'password is could be better';
+  }elseif($PassValidator->scorePassword($PassGenerator->getPassword()) < 5){
+    echo 'password could be better';
+  }elseif($PassValidator->scorePassword($PassGenerator->getPassword()) > 5){
+    echo 'password is rubish';
   }
   
   

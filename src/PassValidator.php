@@ -22,7 +22,7 @@ class PassValidator {
     * @param int $minSymbols // minimun number of special characters
     * @param int $hitcount // counter for bad password pratice
    */
-  public function __construct($minLength = 8, $minNumbers = 2, $minLowerCase = 1, $minUpperCase = 1, $minSymbols = 1, $hitcount = 0)
+  public function __construct($minLength = 10, $minNumbers = 2, $minLowerCase = 1, $minUpperCase = 1, $minSymbols = 1, $hitcount = 0)
    {
     $this->minLength = $minLength;
     $this->minNumbers = $minNumbers;
