@@ -2,17 +2,19 @@
 
 /**
  * Class PassGenerator
+ * This class generates a random password 
+ * 
  */
 class PassGenerator
 {
     protected $symbols;
     protected $password;
    
-    private $length; // required password lenght
-    private $numlower; // desired number of lowercase letters
-    private $numupper; // desired number of uppercase letters
-    private $numint; // desired number of numbers 
-    private $numspecial; // desired number of special charaters 
+    private $length; // Required password lenght
+    private $numlower; // Desired number of lowercase letters
+    private $numupper; // Desired number of uppercase letters
+    private $numint; // Desired number of numbers 
+    private $numspecial; // Desired number of special charaters 
 
     /**
      * PassGenerator constructor.
@@ -24,23 +26,23 @@ class PassGenerator
      */
     public function __construct($length = 8, $numlower = 2, $numupper = 2, $numint = 2, $numspecial = 2)
     {
-        // character pools to ease selection of the desired number of characters
+        // Character pools to ease selection of the desired number of characters
         $this->symbols["lower_case"] = 'abcdefghijklmnopqrstuvwxyz';
         $this->symbols["upper_case"] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $this->symbols["numbers"] = '1234567890';
         $this->symbols["special_symbols"] = '!?~@#-_+<>[]{}';
 
-        $maxnum = 50; // maximum number of charaters in all fields
+        $maxnum = 50; // Hard maximum number of charaters in all fields to prevent misuse
     
-        $this->length = ($length < $maxnum ? $length : $maxnum);
-        $this->numlower = ($numlower < $maxnum ? $numlower : $maxnum);
-        $this->numupper = ($numupper < $maxnum ? $numupper : $maxnum); 
-        $this->numint = ($numint < $maxnum ? $numint : $maxnum); 
-        $this->numspecial = ($numspecial < $maxnum ? $numspecial : $maxnum);
+        $this->length = ($length < $maxnum ? $length : $maxnum); // Check if $lenght is less that $maxnum if not set to $maxnum
+        $this->numlower = ($numlower < $maxnum ? $numlower : $maxnum); // Check if $numupper is less that $maxnum if not set to $maxnum
+        $this->numupper = ($numupper < $maxnum ? $numupper : $maxnum); // Check if $numupper is less that $maxnum if not set to $maxnum
+        $this->numint = ($numint < $maxnum ? $numint : $maxnum); // Check if $numint is less that $maxnum if not set to $maxnum
+        $this->numspecial = ($numspecial < $maxnum ? $numspecial : $maxnum); // Check if $numspecial is less that $maxnum if not set to $maxnum
     }
 
     /**
-     * @return string the generated password
+     * @return string The generated password
      * @internal param $length the length of the generated password
      * @internal param $numlower (optional) number of lowercase letters to be used in the password
      * @internal param $numupper (optional) number of uppercase letters to be used in the password
@@ -61,12 +63,12 @@ class PassGenerator
         // Generate special symbols
         $pass .= $this->getSection($this->numspecial,$this->symbols["special_symbols"]);
         
-        //Check if the sum of desired characters is to low compared to the desired password lenght, if not - random characters from all character pools are added 
+        //Check if the sum of desired characters is to low compared to the desired password lenght, if it is - random characters from all character pools are added 
         if(mb_strlen($pass) < $this->length){
             $diff = abs(mb_strlen($pass) - $this->length);
             $pass .= $this->getRandomSection($diff);
         }
-        
+        // Shuffle and cut password to desired lenght 
         $pass = str_shuffle($pass);
         $pass = substr($pass, 0, $this->length);
         
@@ -92,9 +94,9 @@ class PassGenerator
     {
         $section = '';
         for ($i = 0; $i < $num; $i++) {
-            $item = array_rand($this->symbols); // get a random character string from the string array
-            $n = random_int(0, mb_strlen($this->symbols[$item]) - 1); // get a random character from string of characters
-            $section .= $this->symbols[$item][$n]; // add the character to the section string
+            $item = array_rand($this->symbols); // Get a random character string from the string array
+            $n = random_int(0, mb_strlen($this->symbols[$item]) - 1); // Get a random character from string of characters
+            $section .= $this->symbols[$item][$n]; // Add the character to the section string
         }
         return $section;
     }
@@ -110,8 +112,8 @@ class PassGenerator
     {
         $section = '';
         for ($i = 0; $i < $num; $i++) {
-            $n = random_int(0, mb_strlen($symbols) - 1); // get a random character from the string of characters
-            $section .= $symbols[$n]; // add the character to the section string
+            $n = random_int(0, mb_strlen($symbols) - 1); // Get a random character from the string of characters
+            $section .= $symbols[$n]; // Add the character to the section string
         }
         return $section;
     }

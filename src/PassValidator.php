@@ -2,6 +2,8 @@
 
 /**
  * class PassValidator
+ * 
+ * this class validates a password to a desired standard - a simple strenght test is included 
  */
 class PassValidator {
 
@@ -15,11 +17,11 @@ class PassValidator {
 
   /**
    * PassValidator constructor.
-    * @param int $minLength // minimun password lenght
-    * @param int $minNumbers // minimun number of numbers
-    * @param int $minLowerCase // minimun number of  lowercase letters
-    * @param int $minUpperCase // minimun number of uppercase letters
-    * @param int $minSymbols // minimun number of special characters
+    * @param int $minLength // minimum password lenght
+    * @param int $minNumbers // minimum number of numbers
+    * @param int $minLowerCase // minimum number of  lowercase letters
+    * @param int $minUpperCase // minimum number of uppercase letters
+    * @param int $minSymbols // minimum number of special characters
     * @param int $hitcount // counter for bad password pratice
    */
   public function __construct($minLength = 10, $minNumbers = 2, $minLowerCase = 1, $minUpperCase = 1, $minSymbols = 1, $hitcount = 0)
@@ -80,6 +82,8 @@ class PassValidator {
    * @param string $password .
    *
    * @return mixed Returns an integer hitcount of the password errors.
+   * 
+   *  this is an experiment and not the best way to check the strenght as the hitcount would inevitably increase the longer the password is
    */
   public function scorePassword($password) {
     // Check if we have validation first

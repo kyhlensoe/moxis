@@ -3,15 +3,16 @@
 require_once(__DIR__.'/PassGenerator.php');
 require_once(__DIR__.'/PassValidator.php');
 
-$PassGenerator = new PassGenerator(40,2,5,3,1);
+$PassGenerator = new PassGenerator(4,2,5,3,1);
+$PassGenerator->generate();
 $PassValidator = new PassValidator(10);
 
-  echo 'generated pasword ' . htmlspecialchars($PassGenerator->generate());
+  echo 'generated pasword ' . htmlspecialchars($PassGenerator->getPassword());
   echo '<br>';
   echo '<br>';
   if(!$PassValidator->validatePassword($PassGenerator->getPassword())){
     foreach($PassValidator->getErrors() as $value) {
-        print $value;
+        print $value . '<br>';
       }
   }else{
     echo 'password is valid';
